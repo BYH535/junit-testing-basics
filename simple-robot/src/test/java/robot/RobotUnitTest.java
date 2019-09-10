@@ -1,29 +1,35 @@
 package robot;
 
+import com.company.simple.robot.Coordinates;
+import com.company.simple.robot.Direction;
+import com.company.simple.robot.Robot;
+import com.company.simple.robot.UndefinedRoadbookException;
+import com.company.simple.robot.Instruction;
+import com.company.simple.robot.UnlandedRobotException;
+import com.company.simple.robot.RoadBook;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static robot.Direction.NORTH;
+import static com.company.simple.robot.Direction.NORTH;
 
 public class RobotUnitTest {
 
     @Test
     public void testLand() throws UnlandedRobotException {
-        //---DEFINE---
+        // ---DEFINE---
         Robot robot = new Robot();
-        //---WHEN---
-        robot.land(new Coordinates(3,0));
-        //---THEN---
+        // ---WHEN---
+        robot.land(new Coordinates(3, 0));
+        // ---THEN---
         Assert.assertEquals(NORTH, robot.getDirection());
         Assert.assertEquals(3, robot.getXposition());
         Assert.assertEquals(0, robot.getYposition());
     }
 
-    // tester l'apparition d'une exception, l'annotation @Test intègre expected suivi de la classe de l'exception attendue
-    // Attention : il est parfois nécessaire de s'assurer que l'exception n'apparaît pas avant la dernière instruction du test
-    @Test (expected = UnlandedRobotException.class)
+    // Testing the expected exception
+    @Test(expected = UnlandedRobotException.class)
     public void testRobotMustBeLandedBeforeMoveForward() throws Exception {
         Robot robot = new Robot();
         robot.moveForward();
@@ -31,69 +37,123 @@ public class RobotUnitTest {
 
     @Test
     public void testMoveForward() throws Exception {
-        //---DEFINE---
+        // ---DEFINE---
         Robot robot = new Robot();
+
         robot.land(new Coordinates(5, 5));
+
         int currentXposition = robot.getXposition();
         int currentYposition = robot.getYposition();
-        //---WHEN---
+
+        // ---WHEN---
         robot.moveForward();
-        //---THEN---
-        // TODO : complétez ce test
+
+        // ---THEN---
+        Assert.assertEquals(currentXposition, robot.getXposition());
+        Assert.assertEquals(currentYposition - 1, robot.getYposition());
     }
 
     @Test
     public void testMoveBackward() throws Exception {
-        //---DEFINE---
+        // ---DEFINE---
         Robot robot = new Robot();
+
         robot.land(new Coordinates(3, 0));
+
         int currentXposition = robot.getXposition();
         int currentYposition = robot.getYposition();
-        //---WHEN---
-        // TODO : complétez ce test
-        //---THEN---
+
+        // ---WHEN---
+        robot.moveBackward();
+
+        // ---THEN---
         Assert.assertEquals(currentXposition, robot.getXposition());
-        Assert.assertEquals(currentYposition+1, robot.getYposition());
+        Assert.assertEquals(currentYposition + 1, robot.getYposition());
     }
 
     @Test
     public void testTurnLeft() throws Exception {
-        // TODO : complétez ce test
+        // ---DEFINE---
+        Robot robot = new Robot();
+
+        robot.land(new Coordinates(3, 0));
+
+        // ---WHEN---
+        robot.turnLeft();
+
+        // ---THEN---
+        Assert.assertEquals(robot.getDirection(), Direction.WEST);
     }
 
     @Test
     public void testTurnRight() throws Exception {
-        // TODO : complétez ce test
+        // ---DEFINE---
+        Robot robot = new Robot();
+
+        robot.land(new Coordinates(3, 0));
+
+        // ---WHEN---
+        robot.turnRight();
+
+        // ---THEN---
+        Assert.assertEquals(robot.getDirection(), Direction.EAST);
     }
 
-    @Test
+    @Test(expected = UndefinedRoadbookException.class)
     public void testLetsGoWithoutRoadbook() throws Exception {
-        // TODO : complétez ce test
+        // ---DEFINE---
         Robot robot = new Robot();
+
         robot.land(new Coordinates(3, 0));
+
+        // ---WHEN---
         robot.letsGo();
     }
 
     @Test
     public void testLetsGo() throws Exception {
-        // TODO : complétez ce test
+        // ---DEFINE---
         Robot robot = new Robot();
+
         robot.land(new Coordinates(5, 7));
-        robot.setRoadBook(new RoadBook(Arrays.asList(Instruction.FORWARD, Instruction.FORWARD, Instruction.TURNLEFT, Instruction.FORWARD)));
+        robot.setRoadBook(new RoadBook(
+                Arrays.asList(Instruction.FORWARD, Instruction.FORWARD, Instruction.TURNLEFT, Instruction.FORWARD)));
+
+        int currentXposition = robot.getXposition();
+        int currentYposition = robot.getYposition();
+
+        // ---WHENE---
         robot.letsGo();
+
+        // ---THEN---
+        Assert.assertEquals(currentXposition - 1, robot.getXposition());
+        Assert.assertEquals(currentYposition - 2, robot.getYposition());
     }
 
-    @Test (expected = UnlandedRobotException.class)
+    @Test(expected = UnlandedRobotException.class)
     public void testComputeRoadToWithUnlandedRobot() throws Exception {
+        // ---DEFINE---
         Robot robot = new Robot();
-        // TODO : complétez ce test
+        // ---WHENE---
+        robot.computeRoadTo(new Coordinates(7, 5));
+
     }
 
     @Test
     public void testComputeRoadTo() throws UnlandedRobotException {
-        // TODO : complétez ce test
+        // ---DEFINE---
         Robot robot = new Robot();
+
         robot.land(new Coordinates(3, 0));
+
+        int currentXposition = robot.getXposition();
+        int currentYposition = robot.getYposition();
+
+        // ---WHENE---
         robot.computeRoadTo(new Coordinates(7, 5));
+
+        // ---THEN---
+        Assert.assertEquals(currentXposition + 4, 7);
+        Assert.assertEquals(currentYposition + 5, 5);
     }
 }

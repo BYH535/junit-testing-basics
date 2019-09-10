@@ -1,7 +1,5 @@
-package robot;
+package com.company.simple.robot;
 
-import javax.xml.crypto.Data;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 

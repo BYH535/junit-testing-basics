@@ -1,4 +1,4 @@
-package robot;
+package com.company.simple.robot;
 
 public class Coordinates {
 

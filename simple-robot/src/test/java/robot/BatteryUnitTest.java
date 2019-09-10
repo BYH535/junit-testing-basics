@@ -1,9 +1,5 @@
 package robot;
 
-import junit.framework.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
 /**
  * Created with IntelliJ IDEA.
  * User: fabrice
