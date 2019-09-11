@@ -16,6 +16,29 @@ import static com.company.simple.robot.Direction.NORTH;
 
 public class RobotUnitTest {
 
+    @Test(expected = UnlandedRobotException.class)
+    public void testGetXUnlandedRobot() throws UnlandedRobotException {
+        // ---DEFINE---
+        Robot robot = new Robot();
+
+        robot.getXposition();
+    }
+
+    @Test(expected = UnlandedRobotException.class)
+    public void testGetYUnlandedRobot() throws UnlandedRobotException {
+        // ---DEFINE---
+        Robot robot = new Robot();
+
+        robot.getYposition();
+    }
+
+    @Test(expected = UnlandedRobotException.class)
+    public void testGetDirectionsUnlandedRobot() throws UnlandedRobotException{
+        Robot robot = new Robot();
+
+        robot.getDirection();
+    }
+
     @Test
     public void testLand() throws UnlandedRobotException {
         // ---DEFINE---
@@ -33,6 +56,12 @@ public class RobotUnitTest {
     public void testRobotMustBeLandedBeforeMoveForward() throws Exception {
         Robot robot = new Robot();
         robot.moveForward();
+    }
+
+    @Test(expected = UnlandedRobotException.class)
+    public void testRobotMustBeLandedBeforeMoveBackward() throws Exception {
+        Robot robot = new Robot();
+        robot.moveBackward();
     }
 
     @Test
@@ -69,6 +98,20 @@ public class RobotUnitTest {
         // ---THEN---
         Assert.assertEquals(currentXposition, robot.getXposition());
         Assert.assertEquals(currentYposition + 1, robot.getYposition());
+    }
+
+    @Test(expected = UnlandedRobotException.class)
+    public void testTurnLeftBeforeLanding() throws Exception{
+        Robot robot = new Robot();
+
+        robot.turnLeft();
+    }
+
+    @Test(expected = UnlandedRobotException.class)
+    public void testTurnRightBeforeLanding() throws Exception{
+        Robot robot = new Robot();
+
+        robot.turnRight();
     }
 
     @Test
@@ -117,7 +160,8 @@ public class RobotUnitTest {
 
         robot.land(new Coordinates(5, 7));
         robot.setRoadBook(new RoadBook(
-                Arrays.asList(Instruction.FORWARD, Instruction.FORWARD, Instruction.TURNLEFT, Instruction.FORWARD)));
+                Arrays.asList(Instruction.FORWARD, Instruction.BACKWARD, Instruction.TURNLEFT,
+                 Instruction.BACKWARD, Instruction.TURNRIGHT, Instruction.BACKWARD)));
 
         int currentXposition = robot.getXposition();
         int currentYposition = robot.getYposition();
@@ -126,8 +170,8 @@ public class RobotUnitTest {
         robot.letsGo();
 
         // ---THEN---
-        Assert.assertEquals(currentXposition - 1, robot.getXposition());
-        Assert.assertEquals(currentYposition - 2, robot.getYposition());
+        Assert.assertEquals(currentXposition + 1 , robot.getXposition());
+        Assert.assertEquals(currentYposition + 1, robot.getYposition());
     }
 
     @Test(expected = UnlandedRobotException.class)
@@ -155,5 +199,10 @@ public class RobotUnitTest {
         // ---THEN---
         Assert.assertEquals(currentXposition + 4, 7);
         Assert.assertEquals(currentYposition + 5, 5);
+
+        robot.computeRoadTo(new Coordinates(3, 0));
+
+        Assert.assertEquals(currentXposition, 3);
+        Assert.assertEquals(currentYposition, 0);
     }
 }
