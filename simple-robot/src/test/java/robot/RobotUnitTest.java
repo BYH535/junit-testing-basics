@@ -5,6 +5,7 @@ import com.company.simple.robot.Direction;
 import com.company.simple.robot.Robot;
 import com.company.simple.robot.UndefinedRoadbookException;
 import com.company.simple.robot.Instruction;
+import com.company.simple.robot.InsufficientChargeException;
 import com.company.simple.robot.UnlandedRobotException;
 import com.company.simple.robot.RoadBook;
 import org.junit.Assert;
@@ -81,6 +82,21 @@ public class RobotUnitTest {
         Assert.assertEquals(currentXposition, robot.getXposition());
         Assert.assertEquals(currentYposition - 1, robot.getYposition());
     }
+    @Test
+    public void testForwardInEveryDirection() throws UnlandedRobotException, InsufficientChargeException{
+        Robot robot = new Robot();
+
+        robot.land(new Coordinates(5, 5));
+
+        int currentXposition = robot.getXposition();
+        int currentYposition = robot.getYposition();
+        
+        robot.turnLeft();
+        robot.moveForward();
+
+        Assert.assertEquals(currentXposition - 1, robot.getXposition());
+        Assert.assertEquals(currentYposition, robot.getYposition());
+    }
 
     @Test
     public void testMoveBackward() throws Exception {
@@ -93,6 +109,36 @@ public class RobotUnitTest {
         int currentYposition = robot.getYposition();
 
         // ---WHEN---
+        robot.moveBackward();
+
+        // ---THEN---
+        Assert.assertEquals(currentXposition, robot.getXposition());
+        Assert.assertEquals(currentYposition + 1, robot.getYposition());
+    }
+
+    @Test
+    public void testMoveBackwardInEveryDirection() throws Exception {
+        // ---DEFINE---
+        Robot robot = new Robot();
+
+        robot.land(new Coordinates(3, 0));
+
+        int currentXposition = robot.getXposition();
+        int currentYposition = robot.getYposition();
+
+        // ---WHEN---
+        robot.moveBackward();
+
+        robot.turnLeft();
+        robot.moveBackward();
+
+        robot.turnLeft();
+        robot.moveBackward();
+
+        robot.turnLeft();
+        robot.moveBackward();
+
+        robot.turnLeft();
         robot.moveBackward();
 
         // ---THEN---
@@ -137,9 +183,11 @@ public class RobotUnitTest {
 
         // ---WHEN---
         robot.turnRight();
+        robot.turnRight();
+        robot.turnRight();
 
         // ---THEN---
-        Assert.assertEquals(robot.getDirection(), Direction.EAST);
+        Assert.assertEquals(robot.getDirection(), Direction.WEST);
     }
 
     @Test(expected = UndefinedRoadbookException.class)
@@ -184,7 +232,7 @@ public class RobotUnitTest {
     }
 
     @Test
-    public void testComputeRoadTo() throws UnlandedRobotException {
+    public void testComputeRoadToBiggerCoordinates() throws UnlandedRobotException {
         // ---DEFINE---
         Robot robot = new Robot();
 
@@ -199,10 +247,23 @@ public class RobotUnitTest {
         // ---THEN---
         Assert.assertEquals(currentXposition + 4, 7);
         Assert.assertEquals(currentYposition + 5, 5);
+    }
 
+    @Test
+    public void testComputeRoadToSmallerCoordinates() throws UnlandedRobotException {
+        // ---DEFINE---
+        Robot robot = new Robot();
+
+        robot.land(new Coordinates(7, 5));
+
+        int currentXposition = robot.getXposition();
+        int currentYposition = robot.getYposition();
+
+        // ---WHENE---
         robot.computeRoadTo(new Coordinates(3, 0));
 
-        Assert.assertEquals(currentXposition, 3);
-        Assert.assertEquals(currentYposition, 0);
+        // ---THEN---
+        Assert.assertEquals(currentXposition - 4, 3);
+        Assert.assertEquals(currentYposition - 5, 0);
     }
 }
