@@ -1,4 +1,4 @@
-package robot;
+package com.company.robot;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static robot.Direction.*;
-import static robot.RoadBookCalculator.calculateRoadBook;
+import static com.company.robot.Direction.*;
+import static com.company.robot.RoadBookCalculator.calculateRoadBook;
 
 public class RoadBookCalculatorUnitTest {
     RoadBook book;

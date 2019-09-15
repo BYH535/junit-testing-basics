@@ -1,9 +1,9 @@
-package robot;
+package com.company.robot;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static robot.Direction.*;
+import static com.company.robot.Direction.*;
 
 public class MapToolsUnitTest {
     @Test

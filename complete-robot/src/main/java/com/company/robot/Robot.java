@@ -1,11 +1,11 @@
-package robot;
+package com.company.robot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static robot.Direction.NORTH;
-import static robot.Direction.WEST;
-import static robot.Instruction.*;
+import static com.company.robot.Direction.NORTH;
+import static com.company.robot.Direction.WEST;
+import static com.company.robot.Instruction.*;
 
 public class Robot {
 

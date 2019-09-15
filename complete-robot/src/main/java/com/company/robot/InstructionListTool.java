@@ -1,10 +1,10 @@
-package robot;
+package com.company.robot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static robot.Instruction.TURNLEFT;
-import static robot.Instruction.TURNRIGHT;
+import static com.company.robot.Instruction.TURNLEFT;
+import static com.company.robot.Instruction.TURNRIGHT;
 
 public class InstructionListTool {
 

@@ -1,4 +1,4 @@
-package robot;
+package com.company.robot;
 
 public enum Direction {
     NORTH, WEST, SOUTH, EAST;

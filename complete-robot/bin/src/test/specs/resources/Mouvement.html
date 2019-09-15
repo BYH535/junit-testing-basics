@@ -1,0 +1,400 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link href="concordion.css" rel="stylesheet" type="text/css"/>
+<head><title>Mouvement du robot</title></head>
+<body>
+
+<h1>Gestion des mouvements du robot</h1>
+
+<p>
+    Avant toute chose, le robot ne peut se déplacer que lorsqu'il a atterrit. Une fois qu'il a touché le sol, il a la
+    possibilité de se déplacer selon plusieurs modes :
+</p>
+<ul>
+    <li>Soit mouvement par mouvement</li>
+    <li>Soit en spécifiant les coordonnées à atteindre</li>
+</ul>
+
+<h3>Déplacements mouvement par mouvement</h3>
+
+<p>
+    Le robot peut se déplacer soit en avant soit en arrière selon une direction donnée. Il peut également faire une
+    rotation sur lui-même d'un quart de tour soit dans le sens des aiguilles d'une montre, soit dans le sens inverse.
+</p>
+<p>Lorsqu'il se pose, l'orientation du robot est systématiquement vers le nord.</p>
+
+<div class="example">
+    <p>
+        Avant de se poser, l'orientation du robot est inconnue, l'accès à l'orientation du robot retourne une erreur indiquant que "le robot n'a pas atterri".
+        </p>
+    <p>
+        Ensuite, lorsque le robot se pose, en coordonnées (3,3) par exemple, son orientation est <span concordion:assertEquals="directionAfterLanding()">nord</span>.
+    <ul>
+        <li>Puis s'il se déplace en avant, il avance d'une case vers le nord et atteind la case (3,2)</li>
+        <li>S'il se déplace en arrière, il recule d'une case vers le sud et atteind la case (3,4) sans changer d'orientation</li>
+        <li>S'il tourne dans le sens des aiguilles d'une montre, il est orienté vers l'est mais toujours sur la case (3,3)</li>
+        <li>S'il tourne dans le sens inverse des aiguilles d'une montre, il est orienté vers l'ouest mais toujours sur la case (3,3)</li>
+    </ul>
+    </p>
+</div>
+
+<p>
+    On utilise la symbolique suivante pour illustrer le fonctionnement du robot :
+<ul>
+    <li><img src="im/Up-Arrow.jpg" width="30" height="30"/>: Aller en avant</li>
+    <li><img src="im/arrow-down.jpg" width="30" height="30"/>: Aller en arrière</li>
+    <li><img src="im/arrow-left.jpg" width="30" height="30"/>: Tourner à gauche</li>
+    <li><img src="im/arrow-right.jpg" width="30" height="30"/>: Tourner à droite</li>
+</ul>
+</p>
+
+
+<div class="example">
+<p>Voici un autre exemple de déplacement du robot avec un départ en case <span concordion:set="#landing">(10,10)</span>
+    et une orientation <span concordion:set="#direction">nord</span> :
+    <span concordion:execute="land(#landing,#direction)"></span></p>
+
+<img id="arrow_up2" src="resources/im//Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_up3" src="resources/im//Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_left1" src="resources/im//arrow-left.jpg" width="30" height="30"/>
+<img id="arrow_up4" src="im/Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_up5" src="im/Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_up6" src="im/Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_right1" src="im/arrow-right.jpg" width="30" height="30"/>
+<img id="arrow_up7" src="im/Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_up8" src="im/Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_right2" src="im/arrow-right.jpg" width="30" height="30"/>
+<img id="arrow_down1" src="im/arrow-down.jpg" width="30" height="30"/>
+<img id="arrow_down2" src="im/arrow-down.jpg" width="30" height="30"/>
+<img id="arrow_down3" src="im/arrow-down.jpg" width="30" height="30"/>
+<img id="arrow_down4" src="im/arrow-down.jpg" width="30" height="30"/>
+<img id="arrow_left2" src="im/arrow-left.jpg" width="30" height="30"/>
+<img id="arrow_up9" src="im/Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_up10" src="im/Up-Arrow.jpg" width="30" height="30"/>
+<img id="arrow_up11" src="im/Up-Arrow.jpg" width="30" height="30"/>
+
+<div style="padding:5px;display:inline-table;">
+    <table>
+        <tr ALIGN="CENTER">
+            <th> Y &#92; X</th>
+            <th> 1</th>
+            <th> 2</th>
+            <th> 3</th>
+            <th> 4</th>
+            <th> 5</th>
+            <th> 6</th>
+            <th> 7</th>
+            <th> 8</th>
+            <th> 9</th>
+            <th> 10</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+        </tr>
+        <tr>
+            <th>2</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+        </tr>
+        <tr>
+            <th>3</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+        </tr>
+        <tr>
+            <th>4</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+        </tr>
+        <tr>
+            <th>5</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+        </tr>
+        <tr>
+            <th>6</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot_right.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot_right.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot_right.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot_right.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+        </tr>
+        <tr>
+            <th>7</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+        </tr>
+        <tr>
+            <th>8</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot_left.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot_left.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot_left.png"/></td>
+        </tr>
+        <tr>
+            <th>9</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+        </tr>
+        <tr>
+            <th>10</th>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/empty.png"/></td>
+            <td align="center" style="vertical-align:middle"><img src="im/robot.png"/></td>
+        </tr>
+    </table>
+</div>
+<div style="display:inline-table;">
+    <table concordion:execute="#arrivee=instruction(#ordre)">
+        <tr>
+            <th concordion:set="#ordre">Ordre</th>
+            <th concordion:assertEquals="#arrivee">Arrivée</th>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_1" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(10,9,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_2" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(10,8,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">left</span><img id="arrow_left_1" src="im/arrow-left.jpg" width="30"
+                                                                 height="30"/></td>
+            <td>(10,8,ouest)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_3" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(9,8,ouest)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_4" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(8,8,ouest)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_5" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(7,8,ouest)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">right</span><img id="arrow_right_1" src="im/arrow-right.jpg"
+                                                                  width="30"
+                                                                  height="30"/></td>
+            <td>(7,8,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_6" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(7,7,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_7" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(7,6,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">right</span><img id="arrow_right_2" src="im/arrow-right.jpg"
+                                                                  width="30"
+                                                                  height="30"/></td>
+            <td>(7,6,est)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">down</span><img id="arrow_down_1" src="im/arrow-down.jpg" width="30"
+                                                                 height="30"/></td>
+            <td>(6,6,est)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">down</span><img id="arrow_down_2" src="im/arrow-down.jpg" width="30"
+                                                                 height="30"/></td>
+            <td>(5,6,est)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">down</span><img id="arrow_down_3" src="im/arrow-down.jpg" width="30"
+                                                                 height="30"/></td>
+            <td>(4,6,est)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">down</span><img id="arrow_down_4" src="im/arrow-down.jpg" width="30"
+                                                                 height="30"/></td>
+            <td>(3,6,est)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">left</span><img id="arrow_left_2" src="im/arrow-left.jpg" width="30"
+                                                                 height="30"/></td>
+            <td>(3,6,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_8" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(3,5,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_9" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(3,4,nord)</td>
+        </tr>
+        <tr>
+            <td><span style="visibility:hidden;">up</span><img id="arrow_up_10" src="im/Up-Arrow.jpg" width="30"
+                                                               height="30"/></td>
+            <td>(3,3,nord)</td>
+        </tr>
+    </table>
+</div>
+</div>
+
+<h3>Déplacements par coordonnées</h3>
+
+<p>
+    Le robot peut également se déplacer en lui fournissant des coordonnées. Dans ce cas là, il automatise seul son
+    déplacement.
+
+    Pour calculer son déplacement, le robot a besoin de :
+</p>
+<ul>
+    <li>Des coordonnées de départ</li>
+    <li>De sa direction</li>
+    <li>Des coordonnées d'arrivée</li>
+</ul>
+
+<p>
+    Avec l'ensemble de ces informations, il va créer de lui même un <i>Road Book</i> contenant l'ensemble des mouvements
+    à exécuter. Il ne lui reste alors plus qu'à jouer l'ensemble du <i>Road Book</i> pour se rendre à la destination.
+</p>
+
+<p>
+    Les règles de calcul de l'itinéraire sont les suivantes :
+<ul>
+    <li>La marche avant est favorisée à la marche arrière puisque le robot doit pouvoir se rendre compte de
+        ce qu'il a devant lui ;
+    </li>
+    <li>La rotation dans le <u>sens des aiguilles d'une montre</u> est utilisée en priorité sauf dans le cas où
+        le fait de le <u>sens inverse des aiguilles d'une montre</u> est plus efficaces.
+    </li>
+    <li>Le robot ne peut calculer une route que pour des coordonnées qu'il a préalablement cartographié et mémorisé. La
+        route calculée ne peut emprunter que des coordonnées qui ont été cartographiées.
+    </li>
+    <li>La route établie doit être sans cycle.</li>
+</ul>
+</p>
+
+<div class="example">
+    <b>Calcul simple de route</b>
+    <p>
+        Voici un exemple qui illustre le calcul d'un itinéraire (on reprend la grille définie précédemment).
+    </p>
+
+    <p>
+        Le robot se situe en <span concordion:set="#landing">(5,5)</span> orienté <span
+            concordion:set="#direction">nord</span> et il doit se rendre en <span
+            concordion:set="#destination">(4,4)</span>. Pour se faire, il va calculer les étapes
+        suivantes <span concordion:execute="calculeEtape(#landing, #direction, #destination)"></span>:
+    <table concordion:verifyRows="#instruction:getInstructions()">
+        <tr>
+            <th>Numero</th>
+            <th concordion:assertEquals="#instruction">Instruction</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Aller en avant</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Tourner dans le sens inverse des aiguilles d'une montre</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Aller en avant</td>
+        </tr>
+    </table>
+    </p>
+</div>
+
+<div class="example">
+    <b> Calcul d'une route en dehors de la zone cartographiée </b>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,6 +1,6 @@
-package robot;
+package com.company.robot;
 
-import static robot.Direction.*;
+import static com.company.robot.Direction.*;
 
 public class MapTools {
 

@@ -1,0 +1,91 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link href="concordion.css" rel="stylesheet" type="text/css"/>
+<head><title>La gestion de l'énergie du robot</title></head>
+<body>
+
+<h1> Gestion de l'énergie</h1>
+
+<p>
+    Chaque commande réalisée par le robot consomme de l'énergie ce qui fait que ses batteries s'épuisent peu à peu.
+
+</p>
+
+<h3>Consommation de l'énergie</h3>
+
+<p>    Il n'est pas fait distinction entre les différentes commandes, toutes consomment le même nombres d'unités énergétiques.
+    Toutefois pour les actions de déplacement, la consommation est dépendante de la nature du terrain sur lequel il se déplace.
+    La liste suivante définit les coefficients à appliquer à la consommation d'énergie du robot en fonction du terrain :
+</p>
+
+<table>
+    <tr ALIGN="CENTER">
+        <th>Terrain</th>
+        <th>Consommation d'énergie</th>
+    </tr>
+    <tr>
+        <td>Terre</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>Roche</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>Boue</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>Sable</td>
+        <td>4</td>
+    </tr>
+</table>
+
+<p>En cas d'insuffisance d'énergie, le robot s'arrête. S'il est en commande manuelle, il ne répond pas tant que la
+    charge n'est pas redevenue suffisante. S'il est en mode automatique, il abandonne son trajet et ne reprendra pas sa
+    route lorsque la charge aura été récupérée. Un opérateur doit relancer la route pour que le robot poursuive.</p>
+
+<h3>Récupération de l'énergie</h3>
+
+<p>
+    Lorsque le déploiement des capteurs solaires est activé pour un temps donné, les batteries du robot se rechargent à raison de 10 unités de charge par seconde de repos.
+</p>
+<p>Pendant le rechargement, aucune commande du robot ne peut être activée, ni déplacement, ni cartographie.</p>
+
+<div class="example">
+    <b>Recharge de la batterie</b>
+
+    <p>Si la charge initiale de la batterie est de 15 unités, que la consommation associée à la réalisation de chaque
+        action est de 3 unités, l'exécution d'une opération de recharge des batteries pour 5 secondes ammène la charge
+        de la batterie à 62 unités.
+    </p>
+</div>
+
+<div class="example">
+    <b>Consommation variable en fonction du terrain</b>
+
+    <p>Si l'on considère un robot dont la charge initiale est 80 unités, dont la consommation par action est de 3 dans
+        des conditions de laboratoire et qu'il évolue sur une surface uniforme
+        composée de terre. L'enchainement des opérations de déplacement "avancer", "avancer", "tourner à droite",
+        "avancer", "tourner à droite", "avancer", "avancer", "tourner à droite",
+        "avancer", "tourner à droite" ammène la charge de la batterie à 50 unités.
+    </p>
+    <p>Si l'on considère les mêmes conditions initiales et les mêmes déplacements mais cette fois sur une surface
+    uniforme composée de roche, la charge finale de la batterie sera de 20 unités.
+    </p>
+
+</div>
+
+<div class="example">
+    <b>Insuffisance d'énergie</b>
+
+    <p>Avec une charge initiale de 10 unités et une consommation par action de 3 unités, la séquence d'actions "avancer",
+    "avancer", "avancer", "avancer" ne pourra être menée à bien. Si sa position initiale est (0, 0) et son orientation est
+    nord, il devrait s'arrêter en position (O,-3) et sa charge être réduite à 1</p>
+
+    <p>De la même manière, avec une position initiale de (0,0), une destination de (0,-3), une charge initiale des batteries
+        à 10 unités et une consommation par action de 3 unités, un calcul de route sur un terrain uniforme de terre conduira
+        à ce que le robot n'atteigne pas sa destination et emmette un signal de charge insuffisante.</p>
+</div>
+</body>
+</html>

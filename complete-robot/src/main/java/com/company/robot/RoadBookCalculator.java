@@ -1,11 +1,11 @@
-package robot;
+package com.company.robot;
 
 import java.util.*;
 
-import static robot.Direction.*;
-import static robot.Instruction.*;
-import static robot.MapTools.clockwise;
-import static robot.MapTools.nextForwardPosition;
+import static com.company.robot.Direction.*;
+import static com.company.robot.Instruction.*;
+import static com.company.robot.MapTools.clockwise;
+import static com.company.robot.MapTools.nextForwardPosition;
 
 public class RoadBookCalculator {
 

@@ -1,4 +1,4 @@
-package robot;
+package com.company.robot;
 
 import org.junit.Assert;
 import org.junit.Ignore;

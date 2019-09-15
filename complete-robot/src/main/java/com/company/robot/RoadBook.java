@@ -1,4 +1,4 @@
-package robot;
+package com.company.robot;
 
 import java.util.Iterator;
 import java.util.List;
