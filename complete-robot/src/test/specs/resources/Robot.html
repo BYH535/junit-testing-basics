@@ -1,0 +1,56 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link href="concordion.css" rel="stylesheet" type="text/css"/>
+<head><title>Le robot</title></head>
+<body>
+
+<h1>Le Robot</h1>
+
+<p>
+    Ceci est la page principale de description des tests d'acceptations sur le robot.
+</p>
+
+<h1>Caractéristiques du robot</h1>
+
+<h2>Contrôle et observations</h2>
+
+<h3>Contrôles</h3>
+<ul>
+    <li>Faire atterrir le robot aux coordonnées X, Y. (Cette commande est inopérante lorsque le robot est au sol)</li>
+    <li>Déplacer le robot :</li>
+    <ul>
+        <li>Aller en avant</li>
+        <li>Aller en arrière</li>
+        <li>Tourner à droite</li>
+        <li>Tourner à gauche</li>
+    </ul>
+    <li>Faire une cartographie autour du robot</li>
+    <li>Déployer les capteurs solaires pour un temps donné</li>
+</ul>
+
+<h3>Observations</h3>
+
+<ul>
+    <li>La carte du terrain découvert</li>
+    <li>Le niveau d'énergie courant</li>
+    <li>la position et l'orientation courante</li>
+</ul>
+
+<h2>Gestions spécifiques</h2>
+
+<p>Le robot possède certaines spécificités :</p>
+<ul>
+    <li>Pour la gestion de la <a href="Cartographie.html">cartographie</a> </li>
+    <li>Pour la gestion des <a href="Mouvement.html">déplacements</a></li>
+    <li>Pour la gestion de l'<a href="Energie.html">énergie</a></li>
+</ul>
+
+<h2> État initial </h2>
+<p>
+    Au départ, le robot se trouve en vol, il atterrit à des coordonnées qui lui sont spécifiées, son orientation initiale est vers le nord.
+    Ces coordonnées correspondent ensuite à son point de départ pour toute action qu'il souhaite effectuer.
+</p>
+<p>La batterie est chargée à 20 unités.</p>
+
+</body>
+</html>
